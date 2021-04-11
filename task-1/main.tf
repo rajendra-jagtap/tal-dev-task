@@ -188,29 +188,39 @@ resource "aws_security_group" "db" {
 }
 
 /*==== Webserver EC2 Instance ======*/
+
+resource "aws_eip_association" "eip_web_assoc" {
+  instance_id   = aws_instance.webserver.id
+  allocation_id = aws_eip.web.id
+}
+
 resource "aws_instance" "webserver" {
   ami                      = data.aws_ami.amazon_linux.id
-  count                    = length(var.webserver_ips)
+#  count                    = length(var.webserver_ips)
   instance_type            = var.webserver_instance_type
   key_name                 = var.key_name
   ebs_optimized            = var.ebs_optimized
   vpc_security_group_ids   = [aws_security_group.webserver.id]
-  subnet_id                = "${aws_subnet.public_subnet.*.id[0]}"
+  subnet_id                = "${aws_subnet.public_subnet.id}"
   private_ip               = var.webserver_ips
   tags  = {
     Name                 = "webserver"
   }
 }
 
-/*==== Webserver EC2 Instance ======*/
+resource "aws_eip" "web" {
+  vpc = true
+}
+
+/*==== DB EC2 Instance ======*/
 resource "aws_instance" "db" {
   ami                      = data.aws_ami.amazon_linux.id
-  count                    = length(var.db_ips)
+#  count                    = length(var.db_ips)
   instance_type            = var.db_instance_type
   key_name                 = var.key_name
   ebs_optimized            = var.ebs_optimized
   vpc_security_group_ids   = [aws_security_group.db.id]
-  subnet_id                = "${aws_subnet.private_subnet.*.id[0]}"
+  subnet_id                = "${aws_subnet.private_subnet.id}"
   private_ip               = var.db_ips
   tags = {
     Name                 = "db-server"
