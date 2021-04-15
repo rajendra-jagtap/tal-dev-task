@@ -1,0 +1,18 @@
+- hosts: webserver
+  user: ec2-user
+  become: yes
+  tasks:
+  - name: Install Docker
+    shell: "amazon-linux-extras install docker=18.06.1 -y"
+
+  - name: "Starting and Enabling Docker service"
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: login for ECR
+    shell: a=`aws ecr get-login --region us-east-1|sed s/'-e none'//g`;$a
+
+  - name: "Start web application"
+    shell: docker run -d -p 5000:5000 076471753031.dkr.ecr.us-east-1.amazonaws.com/app-dev:latest
