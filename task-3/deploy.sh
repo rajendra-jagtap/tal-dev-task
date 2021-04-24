@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-cd task-3
 set -eou pipefail
 
 terraform init
