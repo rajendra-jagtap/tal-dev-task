@@ -1,6 +1,6 @@
 ![alt text](https://github.com/raj8595/tal-dev-task/blob/master/aws_arch.PNG?raw=true)
 
-*Task-1* : Use any infrastructure as code(Terraform, Cloudformation, Pulumi) tool to design the following architecture in AWS. Consider DB server as a normal instance in the private subnet. Put your scripts in your GitHub repo and share the repo link as the answer 
+#Task-1 : Use any infrastructure as code(Terraform, Cloudformation, Pulumi) tool to design the following architecture in AWS. Consider DB server as a normal instance in the private subnet. Put your scripts in your GitHub repo and share the repo link as the answer 
 
 Task-2 : There is a python project publicly available: 
 
